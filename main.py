@@ -30,10 +30,11 @@ def download_from(url):
 def main():
     parser = argparse.ArgumentParser(description='Download an image from a gallery')
     parser.add_argument('url', help='URL of the image')
+    parser.add_argument('-f', '--force', help='force wrapper to download image from given URL', action='store_true')
     args = parser.parse_args()
     source_url = args.url
     
-    if source_url.startswith('https://danbooru.donmai.us/'):
+    if not args.force and source_url.startswith('https://danbooru.donmai.us/'):
         html_text = requests.get(source_url).text
         soup = BeautifulSoup(html_text, 'html.parser')
         
